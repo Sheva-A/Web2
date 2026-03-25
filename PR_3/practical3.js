@@ -1,3 +1,5 @@
+"use strict";
+
 // БІБЛІОТЕКА КОРИСТУВАЧІВ
 function runApp1() {
     class User {

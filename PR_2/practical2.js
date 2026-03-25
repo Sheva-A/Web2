@@ -1,3 +1,5 @@
+"use strict";
+
 // АНКЕТА
 function runApp1() {
   const myData = createSurvey();
