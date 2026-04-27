@@ -1,6 +1,6 @@
 "use strict";
 
-// Універсальний фабричний метод для валідації (каррування)
+// Універсальний метод для валідації (каррування)
 const dataProcessor = (transformer) => (validator) => (errorMessage) => (value) => {
     const transformedValue = transformer(value);
     if (validator(transformedValue)) return transformedValue;
@@ -13,12 +13,14 @@ const validateYear = dataProcessor(Number)((n) => !isNaN(n) && n >= 0)("Неко
 
 // Базовий клас секції
 class ResumeSection {
+    #title;
+
     constructor(title) {
-        this._title = title;
+        this.title = title;
     }
 
-    get title() { return this._title; }
-    set title(value) { this._title = validateStr(value); }
+    get title() { return this.#title; }
+    set title(value) { this.#title = validateStr(value); }
 
     render() {
         const div = document.createElement("div");
@@ -30,6 +32,10 @@ class ResumeSection {
 
 // Секція: Особиста інформація
 class PersonalInfo extends ResumeSection {
+    #name;
+    #email;
+    #age;
+
     constructor(name, email, age) {
         super("Особиста інформація");
         this.name = name;
@@ -37,14 +43,14 @@ class PersonalInfo extends ResumeSection {
         this.age = age;
     }
 
-    get name() { return this._name; }
-    set name(value) { this._name = validateStr(value); }
+    get name() { return this.#name; }
+    set name(value) { this.#name = validateStr(value); }
 
-    get email() { return this._email; }
-    set email(value) { this._email = validateStr(value); }
+    get email() { return this.#email; }
+    set email(value) { this.#email = validateStr(value); }
 
-    get age() { return this._age; }
-    set age(value) { this._age = parseAge(value); }
+    get age() { return this.#age; }
+    set age(value) { this.#age = parseAge(value); }
 
     render() {
         const div = super.render();
@@ -57,6 +63,10 @@ class PersonalInfo extends ResumeSection {
 
 // Секція: Досвід
 class Experience extends ResumeSection {
+    #jobTitle;
+    #company;
+    #years;
+
     constructor(jobTitle, company, years) {
         super("Досвід роботи");
         this.jobTitle = jobTitle;
@@ -64,14 +74,14 @@ class Experience extends ResumeSection {
         this.years = years;
     }
 
-    get jobTitle() { return this._jobTitle; }
-    set jobTitle(value) { this._jobTitle = validateStr(value); }
+    get jobTitle() { return this.#jobTitle; }
+    set jobTitle(value) { this.#jobTitle = validateStr(value); }
 
-    get company() { return this._company; }
-    set company(value) { this._company = validateStr(value); }
+    get company() { return this.#company; }
+    set company(value) { this.#company = validateStr(value); }
 
-    get years() { return this._years; }
-    set years(value) { this._years = validateYear(value); }
+    get years() { return this.#years; }
+    set years(value) { this.#years = validateYear(value); }
 
     render() {
         const div = super.render();
@@ -82,17 +92,20 @@ class Experience extends ResumeSection {
 
 // Секція: Освіта
 class Education extends ResumeSection {
+    #degree;
+    #university;
+
     constructor(degree, university) {
         super("Освіта");
         this.degree = degree;
         this.university = university;
     }
 
-    get degree() { return this._degree; }
-    set degree(value) { this._degree = validateStr(value); }
+    get degree() { return this.#degree; }
+    set degree(value) { this.#degree = validateStr(value); }
 
-    get university() { return this._university; }
-    set university(value) { this._university = validateStr(value); }
+    get university() { return this.#university; }
+    set university(value) { this.#university = validateStr(value); }
 
     render() {
         const div = super.render();
@@ -103,16 +116,18 @@ class Education extends ResumeSection {
 
 // Секція: Навички
 class Skills extends ResumeSection {
+    #list;
+
     constructor(skillsArray) {
         super("Навички");
         this.list = skillsArray;
     }
 
-    get list() { return this._list.join(" • "); }
+    get list() { return this.#list.join(" • "); }
 
     set list(array) {
         if (!Array.isArray(array) || array.length === 0) throw new Error("Список навичок порожній");
-        this._list = array.map(s => s.trim()).filter(s => s.length > 0);
+        this.#list = array.map(s => s.trim()).filter(s => s.length > 0);
     }
 
     render() {
@@ -142,7 +157,6 @@ class Resume {
     }
 }
 
-// Ініціалізація та обробка подій
 const createResumeBtn = document.getElementById("createResumeBtn");
 
 createResumeBtn?.addEventListener("click", () => {
