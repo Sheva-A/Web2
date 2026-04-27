@@ -1,179 +1,128 @@
 "use strict";
 
-// Універсальний метод для валідації (каррування)
-const dataProcessor = (transformer) => (validator) => (errorMessage) => (value) => {
-    const transformedValue = transformer(value);
-    if (validator(transformedValue)) return transformedValue;
+// Валідація (каррування та замикання)
+const createValidator = (errorMessage) => (validatorFn) => (value) => {
+    if (validatorFn(value)) return value;
     throw new Error(errorMessage);
 };
 
-const parseAge = dataProcessor(Number)((n) => !isNaN(n) && n > 0 && n < 120)("Некоректний вік");
-const validateStr = dataProcessor(String)((s) => s.trim().length > 0)("Поле не може бути порожнім");
-const validateYear = dataProcessor(Number)((n) => !isNaN(n) && n >= 0)("Некоректна кількість років");
+const isNotEmpty = createValidator("Поле не може бути порожнім")((v) => v && v.trim().length > 0);
+const isPositiveNum = createValidator("Введіть коректне число")((v) => !isNaN(parseFloat(v)) && v > 0);
 
-// Базовий клас секції
+// Клас: Секція (інші класи його наслідують)
 class ResumeSection {
-    #title;
-
     constructor(title) {
-        this.title = title;
+        this.title = isNotEmpty(title);
     }
 
-    get title() { return this.#title; }
-    set title(value) { this.#title = validateStr(value); }
-
-    render() {
+    createBaseElement() {
         const div = document.createElement("div");
         div.className = "resume-section";
-        div.innerHTML = `<h2>${this.title}</h2>`;
+        div.innerHTML = `<h3>${this.title}</h3>`;
         return div;
     }
 }
 
-// Секція: Особиста інформація
+// Клас: Особиста інформація
 class PersonalInfo extends ResumeSection {
-    #name;
-    #email;
     #age;
 
     constructor(name, email, age) {
         super("Особиста інформація");
-        this.name = name;
-        this.email = email;
-        this.age = age;
+        this.name = isNotEmpty(name);
+        this.email = isNotEmpty(email);
+        this.age = age; 
     }
-
-    get name() { return this.#name; }
-    set name(value) { this.#name = validateStr(value); }
-
-    get email() { return this.#email; }
-    set email(value) { this.#email = validateStr(value); }
 
     get age() { return this.#age; }
-    set age(value) { this.#age = parseAge(value); }
+    set age(value) { 
+        this.#age = Number(isPositiveNum(value)); 
+    }
 
     render() {
-        const div = super.render();
-        div.innerHTML += `<p><b>Ім'я:</b> ${this.name}</p>
-                          <p><b>Email:</b> ${this.email}</p>
-                          <p><b>Вік:</b> ${this.age}</p>`;
+        const div = this.createBaseElement();
+        div.innerHTML += `
+            <p><b>Ім'я:</b> ${this.name}</p>
+            <p><b>Email:</b> ${this.email}</p>
+            <p><b>Вік:</b> ${this.age}</p>`;
         return div;
     }
 }
 
-// Секція: Досвід
+// Клас: Досвід роботи
 class Experience extends ResumeSection {
-    #jobTitle;
-    #company;
-    #years;
-
-    constructor(jobTitle, company, years) {
+    constructor(company, role, years) {
         super("Досвід роботи");
-        this.jobTitle = jobTitle;
-        this.company = company;
-        this.years = years;
+        this.company = isNotEmpty(company);
+        this.role = isNotEmpty(role);
+        this.years = isPositiveNum(years);
     }
 
-    get jobTitle() { return this.#jobTitle; }
-    set jobTitle(value) { this.#jobTitle = validateStr(value); }
-
-    get company() { return this.#company; }
-    set company(value) { this.#company = validateStr(value); }
-
-    get years() { return this.#years; }
-    set years(value) { this.#years = validateYear(value); }
-
     render() {
-        const div = super.render();
-        div.innerHTML += `<p>${this.jobTitle} в <b>${this.company}</b> (${this.years} р.)</p>`;
+        const div = this.createBaseElement();
+        div.innerHTML += `<p>${this.role} в <b>${this.company}</b> (${this.years} р.)</p>`;
         return div;
     }
 }
 
-// Секція: Освіта
-class Education extends ResumeSection {
-    #degree;
-    #university;
-
-    constructor(degree, university) {
-        super("Освіта");
-        this.degree = degree;
-        this.university = university;
-    }
-
-    get degree() { return this.#degree; }
-    set degree(value) { this.#degree = validateStr(value); }
-
-    get university() { return this.#university; }
-    set university(value) { this.#university = validateStr(value); }
-
-    render() {
-        const div = super.render();
-        div.innerHTML += `<p>${this.degree}, ${this.university}</p>`;
-        return div;
-    }
-}
-
-// Секція: Навички
+// Клас: Навички
 class Skills extends ResumeSection {
-    #list;
-
-    constructor(skillsArray) {
+    constructor(skillsString) {
         super("Навички");
-        this.list = skillsArray;
-    }
-
-    get list() { return this.#list.join(" • "); }
-
-    set list(array) {
-        if (!Array.isArray(array) || array.length === 0) throw new Error("Список навичок порожній");
-        this.#list = array.map(s => s.trim()).filter(s => s.length > 0);
+        this.list = isNotEmpty(skillsString).split(",").map(s => s.trim());
     }
 
     render() {
-        const div = super.render();
-        div.innerHTML += `<p>${this.list}</p>`;
+        const div = this.createBaseElement();
+        div.innerHTML += `<p>${this.list.join(" • ")}</p>`;
         return div;
     }
 }
 
-// Управління резюме та збереження
+// Головний клас (збір всіх розділів)
 class Resume {
     constructor() {
         this.sections = [];
     }
 
     addSection(section) {
-        if (section instanceof ResumeSection) this.sections.push(section);
+        this.sections.push(section);
     }
 
     render(containerId) {
         const container = document.getElementById(containerId);
         if (!container) return;
-        
-        container.innerHTML = "";
+
+        container.innerHTML = ""; 
         this.sections.forEach(section => container.appendChild(section.render()));
-        localStorage.setItem("savedResume", JSON.stringify(this.sections));
+
+        // Збереження в localStorage
+        localStorage.setItem("myResume", JSON.stringify(this.sections));
     }
 }
 
-const createResumeBtn = document.getElementById("createResumeBtn");
-
-createResumeBtn?.addEventListener("click", () => {
+// Введення даних користувачем
+document.getElementById("createResumeBtn")?.addEventListener("click", () => {
     try {
         const myResume = new Resume();
 
-        myResume.addSection(new PersonalInfo(prompt("Ім'я:"), prompt("Email:"), prompt("Вік:")));
-        myResume.addSection(new Experience(prompt("Посада:"), prompt("Компанія:"), prompt("Років досвіду:")));
-        myResume.addSection(new Education(prompt("Ступінь:"), prompt("Університет:")));
+        const name = prompt("Ваше ім'я:");
+        const email = prompt("Ваш Email:");
+        const age = prompt("Ваш вік:");
+        myResume.addSection(new PersonalInfo(name, email, age));
 
-        const skillsRaw = prompt("Навички (через кому):");
-        if (!skillsRaw) throw new Error("Навички не вказані");
-        myResume.addSection(new Skills(skillsRaw.split(",")));
+        const company = prompt("Компанія:");
+        const role = prompt("Посада:");
+        const years = prompt("Скільки років досвіду:");
+        myResume.addSection(new Experience(company, role, years));
+
+        const skills = prompt("Навички (через кому):");
+        myResume.addSection(new Skills(skills));
 
         myResume.render("resumeOutput");
-        alert("Готово!");
-    } catch (e) {
-        alert("Помилка: " + e.message);
+        alert("Резюме успішно створено!");
+
+    } catch (error) {
+        alert("Помилка: " + error.message);
     }
 });
