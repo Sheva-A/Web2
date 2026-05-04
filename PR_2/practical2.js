@@ -51,7 +51,10 @@ function runApp2() {
   let result;
   let message;
 
-  if (direction === "C to F") {
+  if (isNaN(tempInput)){
+    message = `${tempInput} не є числом`
+  }
+  else if (direction === "C to F") {
     result = celsiusToFahrenheit(tempInput);
     message = `${tempInput}°C дорівнює ${result.toFixed(2)}°F`;
   } else if (direction === "F to C") {

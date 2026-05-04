@@ -3,6 +3,12 @@
 const taskInput = document.getElementById("taskInput");
 const addTaskButton = document.getElementById("addTask");
 const taskList = document.getElementById("taskList");
+const deleteH1 = document.getElementById("deleteH1")
+
+deleteH1.addEventListener("click", function(){
+    const elementToRemove = document.getElementById("H1");
+    elementToRemove.remove();
+});
 
 addTaskButton.addEventListener("click", function() {
     const taskText = taskInput.value.trim();

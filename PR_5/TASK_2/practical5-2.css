@@ -1,0 +1,28 @@
+#pokemonOutput {
+    margin-top: 20px;
+    font-family: sans-serif;
+}
+
+.pokemon-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    max-width: 200px;
+    text-align: center;
+}
+
+.pokemon-card img {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+}
+
+.stats-list {
+    text-align: left;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.stats-list p {
+    margin: 4px 0;
+}
