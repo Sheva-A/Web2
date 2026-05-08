@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фільмова база</title>
+    <link rel="stylesheet" href="laboratory4-6.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Фільмова база</h1>
+        
+        <div class="controls">
+            <input type="text" id="searchInput" placeholder="Пошук за назвою...">
+            <select id="sortSelect">
+                <option value="default">Без сортування</option>
+                <option value="alphabetical">За алфавітом (А-Я)</option>
+                <option value="rating">За рейтингом (високий-низький)</option>
+            </select>
+        </div>
+
+        <div id="errorMessage" class="error-hidden"></div>
+
+        <div id="moviesContainer" class="movies-grid"></div>
+    </div>
+
+    <script src="laboratory4-6.js"></script>
+</body>
+</html>
