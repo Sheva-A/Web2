@@ -5,3 +5,5 @@ export const user = {
     age: 20, 
     city: "Київ" 
 };
+
+export var x = 100

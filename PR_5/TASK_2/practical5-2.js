@@ -11,7 +11,8 @@ function processPokemonData(data) {
         atk: data.stats[1].base_stat,
         def: data.stats[2].base_stat,
         speed: data.stats[5].base_stat,
-        type: data.types[0].type.name
+        type: data.types[0].type.name,
+        special: data.stats[3].base_stat
     };
 }
 
@@ -40,6 +41,7 @@ async function getPokemonData() {
                     <p><b>Attack:</b> ${pokemon.atk}</p>
                     <p><b>Defense:</b> ${pokemon.def}</p>
                     <p><b>Speed:</b> ${pokemon.speed}</p>
+                    <p><b>Special:</b> ${pokemon.special}
                 </div>
             </div>
         `;

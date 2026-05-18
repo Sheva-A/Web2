@@ -3,6 +3,7 @@
 const taskInput = document.getElementById("taskInput");
 const addTaskButton = document.getElementById("addTask");
 const taskList = document.getElementById("taskList");
+const header = document.getElementById("header");
 
 function loadTasks() {
     const tasksJSON = localStorage.getItem("tasks");
@@ -47,6 +48,10 @@ taskList.addEventListener("click", function(event) {
         displayTasks();
         console.log("Завдання видалено");
     }
+});
+
+header.addEventListener("click", function(event) {
+    addTaskButton.remove();
 });
 
 displayTasks();
