@@ -2,19 +2,229 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Усі роботи</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Портфоліо веб-робіт — практичні та лабораторні роботи з Web-технологій">
+    <title>Веб-роботи — Sheva-A</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f0f17;
+            color: #e2e2f0;
+            min-height: 100vh;
+            padding: 2rem 1rem 4rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #a78bfa, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin: 2.5rem 0 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.875rem;
+        }
+
+        .card {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 1rem 1.25rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            text-decoration: none;
+            color: #e2e2f0;
+            transition: background 0.2s, border-color 0.2s, transform 0.15s;
+        }
+
+        .card:hover {
+            background: rgba(167,139,250,0.1);
+            border-color: rgba(167,139,250,0.35);
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .icon-pr  { background: rgba(167,139,250,0.15); }
+        .icon-lab { background: rgba(52,211,153,0.15); }
+        .icon-react { background: rgba(96,165,250,0.15); }
+
+        .card-text .label {
+            font-size: 0.78rem;
+            color: #6b7280;
+            margin-bottom: 0.1rem;
+        }
+
+        .card-text .title {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .badge-react {
+            margin-left: auto;
+            font-size: 0.65rem;
+            font-weight: 600;
+            background: rgba(96,165,250,0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(96,165,250,0.3);
+            border-radius: 6px;
+            padding: 2px 6px;
+            letter-spacing: 0.04em;
+            flex-shrink: 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Оберіть роботу:</h1>
-    <a href="PR_1/practical1.html">Практична робота №1</a><br>
-    <a href="PR_2/practical2.html">Практична робота №2</a><br>
-    <a href="PR_3/practical3.html">Практична робота №3</a><br>
-    <a href="LAB_1-3/laboratory1-3.html">Лабораторна робота №1-3</a><br>
-    <a href="PR_4/practical4.html">Практична робота №4</a><br>
-    <a href="PR_5/TASK_1/practical5-1.html">Практична робота №5.1</a><br>
-    <a href="PR_5/TASK_2/practical5-2.html">Практична робота №5.2</a><br>
-    <a href="PR_6/practical6.html">Практична робота №6</a><br>
-    <a href="LAB_4-6/laboratory4-6.html">Лабораторна робота №4-6</a><br>
-    <a href="PR_7/practical7.html">Практична робота №7</a>
+    <div class="container">
+        <header>
+            <h1>Веб-роботи</h1>
+            <p>Sheva-A · Практичні та лабораторні роботи</p>
+        </header>
+
+        <div class="section-title">Практичні роботи</div>
+        <div class="grid">
+            <a class="card" href="PR_1/practical1.html" id="pr1">
+                <div class="card-icon icon-pr">💻</div>
+                <div class="card-text">
+                    <div class="label">Практична</div>
+                    <div class="title">Робота №1</div>
+                </div>
+            </a>
+            <a class="card" href="PR_2/practical2.html" id="pr2">
+                <div class="card-icon icon-pr">💻</div>
+                <div class="card-text">
+                    <div class="label">Практична</div>
+                    <div class="title">Робота №2</div>
+                </div>
+            </a>
+            <a class="card" href="PR_3/practical3.html" id="pr3">
+                <div class="card-icon icon-pr">💻</div>
+                <div class="card-text">
+                    <div class="label">Практична</div>
+                    <div class="title">Робота №3</div>
+                </div>
+            </a>
+            <a class="card" href="PR_4/practical4.html" id="pr4">
+                <div class="card-icon icon-pr">💻</div>
+                <div class="card-text">
+                    <div class="label">Практична</div>
+                    <div class="title">Робота №4</div>
+                </div>
+            </a>
+            <a class="card" href="PR_5/TASK_1/practical5-1.html" id="pr5-1">
+                <div class="card-icon icon-pr">💻</div>
+                <div class="card-text">
+                    <div class="label">Практична</div>
+                    <div class="title">Робота №5.1</div>
+                </div>
+            </a>
+            <a class="card" href="PR_5/TASK_2/practical5-2.html" id="pr5-2">
+                <div class="card-icon icon-pr">💻</div>
+                <div class="card-text">
+                    <div class="label">Практична</div>
+                    <div class="title">Робота №5.2</div>
+                </div>
+            </a>
+            <a class="card" href="PR_6/practical6.html" id="pr6">
+                <div class="card-icon icon-pr">💻</div>
+                <div class="card-text">
+                    <div class="label">Практична</div>
+                    <div class="title">Робота №6</div>
+                </div>
+            </a>
+            <a class="card" href="PR_7/practical7.html" id="pr7">
+                <div class="card-icon icon-pr">💻</div>
+                <div class="card-text">
+                    <div class="label">Практична</div>
+                    <div class="title">Робота №7</div>
+                </div>
+            </a>
+            <a class="card" href="https://sheva-a.github.io/Web2/my-shop/" id="pr8" target="_blank" rel="noopener">
+                <div class="card-icon icon-react">⚛️</div>
+                <div class="card-text">
+                    <div class="label">Практична</div>
+                    <div class="title">Робота №8</div>
+                </div>
+                <span class="badge-react">React</span>
+            </a>
+            <a class="card" href="https://sheva-a.github.io/Web2/react-pr9/" id="pr9" target="_blank" rel="noopener">
+                <div class="card-icon icon-react">⚛️</div>
+                <div class="card-text">
+                    <div class="label">Практична</div>
+                    <div class="title">Робота №9</div>
+                </div>
+                <span class="badge-react">React</span>
+            </a>
+        </div>
+
+        <div class="section-title">Лабораторні роботи</div>
+        <div class="grid">
+            <a class="card" href="LAB_1-3/laboratory1-3.html" id="lab1-3">
+                <div class="card-icon icon-lab">🔬</div>
+                <div class="card-text">
+                    <div class="label">Лабораторна</div>
+                    <div class="title">Роботи №1–3</div>
+                </div>
+            </a>
+            <a class="card" href="LAB_4-6/laboratory4-6.html" id="lab4-6">
+                <div class="card-icon icon-lab">🔬</div>
+                <div class="card-text">
+                    <div class="label">Лабораторна</div>
+                    <div class="title">Роботи №4–6</div>
+                </div>
+            </a>
+            <a class="card" href="https://sheva-a.github.io/Web2/underground-clicker/" id="underground-clicker" target="_blank" rel="noopener">
+                <div class="card-icon icon-react">🎮</div>
+                <div class="card-text">
+                    <div class="label">Гра</div>
+                    <div class="title">Underground Clicker</div>
+                </div>
+                <span class="badge-react">React</span>
+            </a>
+        </div>
+    </div>
 </body>
 </html>

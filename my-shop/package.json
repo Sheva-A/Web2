@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://<твій-нікнейм-github>.github.io/<назва-репозиторію>/",
+  "homepage": "https://sheva-a.github.io/Web2/my-shop/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
