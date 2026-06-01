@@ -1,0 +1,42 @@
+.app-container {
+  font-family: sans-serif;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.product-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: 220px;
+}
+
+.product-image {
+  max-width: 100%;
+}
+
+.product-title {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.buy-button {
+  background-color: #646cff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.buy-button:hover {
+  background-color: #535bf2;
+}

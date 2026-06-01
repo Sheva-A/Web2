@@ -1,0 +1,113 @@
+.gameContainer {
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Courier New', Courier, monospace;
+  transition: all 0.5s ease;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &.detroitNight {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --accent: #8b0000;
+    --card-bg: #1e1e1e;
+  }
+
+  &.tangierSun {
+    --bg-color: #d4c3a3;
+    --text-color: #2c1b00;
+    --accent: #d35400;
+    --card-bg: #e6d8b8;
+  }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  h1 { font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; }
+  .credits { font-size: 2rem; font-weight: bold; color: var(--accent); }
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.clickArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  .clickButton {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 5px solid var(--accent);
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    transition: transform 0.1s;
+    
+    &:active { transform: scale(0.95); }
+  }
+}
+
+.upgradesPanel, .prestigePanel {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.upgradeItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+
+  button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
+  }
+}
+
+.eventToast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--accent);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  z-index: 1000;
+}
+
+.modal {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px solid var(--accent);
+  z-index: 1001;
+  text-align: center;
+}
